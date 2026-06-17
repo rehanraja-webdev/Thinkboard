@@ -1,17 +1,17 @@
 import express from "express";
 //const express = require("express")
 import notesRoutes from "./routes/notesRoutes.js";
-import { connectDB } from "../config/db.js";
+import { connectDB } from "./config/db.js";
 import dotenv from "dotenv";
+import rateLimiter from "./middleware/rateLimiter.js";
 dotenv.config();
 
-//LrOd8yX4dTt5cqN6
 const app = express();
 const PORT = process.env.PORT || 5001;
-connectDB();
 
 //middleware
-app.use(express.json());
+app.use(express.json()); //this middleware will parse JSON bodies: req.body
+app.use(rateLimiter);
 
 app.use("/api/notes", notesRoutes);
 
@@ -20,6 +20,8 @@ app.use("/api/notes", notesRoutes);
 //PUT: Update a post
 //DELETE: Delete a post
 
-app.listen(PORT, () => {
-  console.log("server is running at port:", PORT);
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log("server is running at port:", PORT);
+  });
 });
