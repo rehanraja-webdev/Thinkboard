@@ -1,6 +1,11 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+@plugin "daisyui/theme" {
+  name: "forest";
+  default: true;
+}
+
 .background {
   background: #3c3c3a85;
 }
