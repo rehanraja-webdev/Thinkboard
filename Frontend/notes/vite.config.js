@@ -4,4 +4,8 @@ import daisyui from "daisyui";
 
 export default defineConfig({
   plugins: [tailwindcss(), daisyui],
+  daisyui: {
+    themes: ["forest"],
+  },
 });
+

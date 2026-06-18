@@ -1,9 +1,9 @@
 import Note from "../models/Note.js";
 
-//if we are not using the parameter than we use "_"
+//if we are not using the parameter than we use "_" in place of req/res
 export const getAllNotes = async (_, res) => {
   try {
-    const notes = await Note.find().sort({ createdAt: -1 }); //newest first
+    const notes = await Note.find().sort({ createdAt: -1 }); //newest note will be display first
     res.status(200).json(notes);
   } catch (error) {
     console.error("Error in getAllNotes controller", error);
@@ -18,8 +18,6 @@ export const getNoteById = async (req, res) => {
       return res.status(404).json({ message: "Note not found" });
     }
     res.status(200).json(note);
-
-    
   } catch (error) {
     console.error("Error in getNoteById controller", error);
     res.status(500).json({ message: "Internal server error" });
